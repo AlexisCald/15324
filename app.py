@@ -42,7 +42,7 @@ if st.session_state.clave_generada:
     st.write(f"Clave generada: {st.session_state.clave_generada}")
 
     # Usar text_area para copiar al portapapeles
-    st.text_area("Clave generada (Copia al portapapeles):", st.session_state.clave_generada, height=2, key="clave_generada_text", help="Puedes copiar esta clave al portapapeles")
+    st.text_area("Clave generada (Copia al portapapeles):", st.session_state.clave_generada, height=2)
 
     # Instrucciones para copiar
     st.markdown("""
