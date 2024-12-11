@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 from datetime import datetime
+import random
 
 # Leer archivo de proveedores
 df = pd.read_excel("prov.xlsx", engine='openpyxl')
@@ -35,7 +36,8 @@ tipo_clave = "P" if tipo == "Pedido" else "C"
 if st.button("Generar clave"):
     clave_proveedor = df[df['Nombre'] == proveedor]['Clave'].values[0]
     numero_consecutivo = datetime.now().timetuple().tm_yday
-    clave_final = f" | {clave_proveedor}{equipo}{numero_consecutivo:03d}{tipo_clave}"
+    numero_azar = random.randint(1, 1000)
+    clave_final = f" | {clave_proveedor}{equipo}{numero_consecutivo:03d}{numero_azar:03d}{tipo_clave}"
     st.session_state.clave_generada = clave_final
     st.session_state.mensaje_copiar = "Copiar clave"
     st.success(f"Clave generada: {clave_final}")
