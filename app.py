@@ -1,6 +1,5 @@
 import pandas as pd
 import streamlit as st
-import pyperclip  # Para copiar al portapapeles
 
 # Leer el archivo de proveedores
 df = pd.read_excel("prov.xls", engine='xlrd')
@@ -14,6 +13,8 @@ if "clave_generada" not in st.session_state:
     st.session_state.clave_generada = ""
 if "mensaje_copiar" not in st.session_state:
     st.session_state.mensaje_copiar = "Copiar clave"
+if "numero_consecutivo" not in st.session_state:
+    st.session_state.numero_consecutivo = 1
 
 # Seleccionar proveedor
 proveedor = st.selectbox("Selecciona un proveedor:", df['Nombre'].tolist())
@@ -24,10 +25,6 @@ equipo = st.selectbox("Selecciona el equipo de ventas:", [f"{i:02d}" for i in ra
 # Seleccionar tipo de pedido
 tipo = st.radio("Selecciona el tipo de pedido:", ["Pedido", "Cotización"])
 tipo_clave = "P" if tipo == "Pedido" else "C"
-
-# Número consecutivo
-if "numero_consecutivo" not in st.session_state:
-    st.session_state.numero_consecutivo = 1
 
 # Generar clave
 if st.button("Generar clave"):
@@ -40,11 +37,10 @@ if st.button("Generar clave"):
 
 # Mostrar la clave generada
 if st.session_state.clave_generada:
-    st.write(f"Clave generada: {st.session_state.clave_generada}")
+    st.write(f"**Clave generada:** {st.session_state.clave_generada}")
 
 # Copiar clave
-if st.button(st.session_state.mensaje_copiar):
-    # Copiar al portapapeles
-    pyperclip.copy(st.session_state.clave_generada)
+if st.session_state.clave_generada and st.button(st.session_state.mensaje_copiar):
+    st.experimental_set_query_params(clave=st.session_state.clave_generada)
     st.session_state.mensaje_copiar = "Clave copiada!"
     st.success("¡Clave copiada al portapapeles!")
