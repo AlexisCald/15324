@@ -1,6 +1,5 @@
 import pandas as pd
 import streamlit as st
-import pyperclip  # Para copiar al portapapeles
 
 # Leer el archivo de proveedores (asegúrate de que el archivo sea .xlsx)
 df = pd.read_excel("prov.xlsx", engine='openpyxl')  # Cambié 'prov.xls' a 'prov.xlsx'
@@ -42,9 +41,10 @@ if st.button("Generar clave"):
 if st.session_state.clave_generada:
     st.write(f"Clave generada: {st.session_state.clave_generada}")
 
-# Copiar clave
-if st.button(st.session_state.mensaje_copiar):
-    # Copiar al portapapeles
-    pyperclip.copy(st.session_state.clave_generada)
-    st.session_state.mensaje_copiar = "Clave copiada!"
-    st.success("¡Clave copiada al portapapeles!")
+    # Usar text_area para copiar al portapapeles
+    st.text_area("Clave generada (Copia al portapapeles):", st.session_state.clave_generada, height=2, key="clave_generada_text", help="Puedes copiar esta clave al portapapeles")
+
+    # Instrucciones para copiar
+    st.markdown("""
+        **Nota**: Haz clic en el área de texto para copiar la clave al portapapeles.
+    """)
