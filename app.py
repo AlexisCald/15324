@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 
 # Leer el archivo de proveedores
-df = pd.read_excel("prov.xls", engine='xlrd')
+df = pd.read_excel("prov.xlsx", engine='xlrd')
 df.columns = df.columns.str.strip()
 
 # Configurar la aplicación
