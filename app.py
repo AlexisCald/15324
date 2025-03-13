@@ -57,9 +57,9 @@ if st.button("Generar clave"):
         claves_generadas.append(clave_final)
 
     # Guardar clave generada en sesión
-    st.session_state.clave_generada = "\n".join(claves_generadas)
+    st.session_state.clave_generada = clave_final
     st.session_state.mensaje_copiar = "Copiar clave"
-    st.success("Claves generadas correctamente")
+    st.success(f"Clave generada: {clave_final}")
 
 # Mostrar la clave generada
 if st.session_state.clave_generada:
